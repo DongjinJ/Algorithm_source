@@ -4,43 +4,57 @@ using namespace std;
 
 int main()
 {
-    int T;
+    long long T;
 
-    scanf("%d", &T);
+    scanf("%lld", &T);
 
-    for (int i = 0; i < T; i++)
+    for (long long i = 0; i < T; i++)
     {
-        int N;
-        scanf("%d", &N);
-        int *pro = new int[N];
-
-        for (int j = 0; j < N; j++)
-            scanf("%d", &pro[j]);
-
-        int count = 0;
-        int cost = 0;
-        for (int j = 0; j < N; j++)
+        long long N;
+        scanf("%lld", &N);
+        long long *pro = new long long[N];
+        long long max = 0;
+        long long index = 0;
+        for (long long j = 0; j < N; j++)
         {
-            if (j == N - 1)
+            scanf("%lld", &pro[j]);
+            if (max < pro[j])
             {
-                cost += count * pro[j];
+                max = pro[j];
+                index = j;
             }
-            else
+        }
+        cout << index << endl;
+
+        long long count = 0;
+        long long cost = 0;
+        if (index + 1 == N)
+            cost = pro[index] * (N - 1);
+        else
+        {
+            for (long long j = 0; j < N; j++)
             {
-                if (pro[j + 1] < pro[j])
+                if (j == N - 1)
                 {
                     cost += count * pro[j];
-                    count = 0;
                 }
                 else
                 {
-                    cost -= pro[j];
-                    count++;
+                    if (pro[j + 1] < pro[j])
+                    {
+                        cost += count * pro[j];
+                        count = 0;
+                    }
+                    else
+                    {
+                        cost -= pro[j];
+                        count++;
+                    }
                 }
+                printf("%d: %d\n", j, cost);
             }
-            printf("%d: %d\n", j, cost);
         }
-        printf("#%d %d\n", i + 1, cost);
+        printf("#%d %ld\n", i + 1, cost);
         delete[] pro;
     }
 }
