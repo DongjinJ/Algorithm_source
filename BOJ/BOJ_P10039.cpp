@@ -15,7 +15,7 @@ int main(){
     }
     answer /= 5;            // 인원 수 만큼 나누기(평균)
 
-    printf("%d", answer);
+    printf("%d\n", answer);
 
     return 0;
 
